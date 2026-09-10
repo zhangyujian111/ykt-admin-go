@@ -1,0 +1,25 @@
+server:
+  port: 8090
+  mode: release  # gin mode: debug/release/test
+
+# 单库：所有业务表（ykt_sys_* / ykt_alert_* / ykt_event_* / sys_* / ykt_aisaas_*）
+# 统一落在同一个库，不做跨库查询。
+# 连接数按原三个库之和（20 + 10 + 10）设置。
+mysql:
+  dsn: "root:root@tcp(127.0.0.1:13306)/ykt?charset=utf8mb4&parseTime=true&loc=Local&multiStatements=true"
+  maxOpenConns: 40
+  maxIdleConns: 10
+  connMaxLifeMin: 30
+
+redis:
+  addr: "127.0.0.1:16379"
+  db: 0
+
+# JWT 密钥（替换 sa-token）
+jwt:
+  secret: "ykt-admin-jwt-secret-2026-replace-in-prod"
+  issuer: "ykt-admin"
+  ttlMin: 1440  # 24h
+
+log:
+  level: info
